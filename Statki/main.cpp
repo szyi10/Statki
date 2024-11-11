@@ -24,6 +24,27 @@ void printBoard(char board[SIZE][SIZE]) {
 	}
 };
 
+int isPositionFree(char board[SIZE][SIZE], int x, int y) {
+	// Sprawdzenie czy współrzędne są w granicah planszy i czy dane pole jest puste
+	if (x || x >= SIZE || y < 0 || y >= SIZE || board[x][y] != '.') {
+		return 0;
+	}
+
+	// Sprawdzenie sąsiadujących pól
+	for (int i = -1; i <= 1; i++) {
+		for (int j = -1; j <= 1; j++) {
+			int newX = x + i;
+			int newY = y + j;
+			if (newX >= 0 && newX < SIZE && newY >= 0 && newY < SIZE) {
+				if (board[newX][newY] == 'x') {
+					return 0;
+				}
+			}
+		}
+	}
+	return 1;
+};
+
 // Umieszczanie jednomasztowców na planszy
 void placeSingleMastShips(char board[SIZE][SIZE]) {
 	int count = 0;
@@ -31,8 +52,7 @@ void placeSingleMastShips(char board[SIZE][SIZE]) {
 		int x = rand() % SIZE;
 		int y = rand() % SIZE;
 
-		// Sprawdzenie czy dane pole jest puste
-		if (board[x][y] == '.') {
+		if (isPositionFree(board, x, y)) {
 			board[x][y] = 'x';
 			count++;
 		}
