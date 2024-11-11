@@ -13,6 +13,7 @@ void initializeBoard(char borad[SIZE][SIZE]) {
 		}
 	}
 };
+
 // Drukowanie planszy na ekranie
 void printBoard(char board[SIZE][SIZE]) {
 	for (int i = 0; i < SIZE; i++) {
@@ -23,11 +24,29 @@ void printBoard(char board[SIZE][SIZE]) {
 	}
 };
 
+// Umieszczanie jednomasztowców na planszy
+void placeSingleMastShips(char board[SIZE][SIZE]) {
+	int count = 0;
+	while (count < 4) {
+		int x = rand() % SIZE;
+		int y = rand() % SIZE;
+
+		// Sprawdzenie czy dane pole jest puste
+		if (board[x][y] == '.') {
+			board[x][y] = 'x';
+			count++;
+		}
+	}
+};
+
 int main() {
 	char board[SIZE][SIZE];
 	srand(time(NULL));
 
 	initializeBoard(board);
+
+	placeSingleMastShips(board);
+
 	printBoard(board);
 
 	return 0;
