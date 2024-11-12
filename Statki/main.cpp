@@ -113,6 +113,35 @@ void placeThreeMastShips(char board[SIZE][SIZE]) {
     }
 }
 
+// Umieszczanie czteromasztowca na planszy
+void placeFourMastShip(char board[SIZE][SIZE]) {
+    int placed = 0;
+
+    while (!placed) {
+        int x = rand() % SIZE;
+        int y = rand() % SIZE;
+        int orientation = rand() % 2; // 0 - poziomo, 1 - pionowo
+
+        // Sprawdzenie, czy czteromasztowiec można umieścić poziomo
+        if (orientation == 0 && y + 2 < SIZE && isPositionFree(board, x, y) && isPositionFree(board, x, y + 1) && isPositionFree(board, x, y + 2) && isPositionFree(board, x, y + 3)) {
+            board[x][y] = 'x';
+            board[x][y + 1] = 'x';
+            board[x][y + 2] = 'x';
+            board[x][y + 3] = 'x';
+            placed = 1;
+        }
+
+        // Sprawdzenie, czy czteromasztowiec można umieścić pionowo
+        if (orientation == 1 && x + 2 < SIZE && isPositionFree(board, x, y) && isPositionFree(board, x + 1, y) && isPositionFree(board, x + 2, y) && isPositionFree(board, x + 3, y)) {
+            board[x][y] = 'x';
+            board[x + 1][y] = 'x';
+            board[x + 2][y] = 'x';
+            board[x + 3][y] = 'x';
+            placed = 1;
+        }
+    }
+}
+
 int main() {
     char board[SIZE][SIZE];
     srand(time(NULL));
@@ -122,6 +151,7 @@ int main() {
     placeSingleMastShips(board);
     placeTwoMastShips(board);
     placeThreeMastShips(board);
+    placeFourMastShip(board);
 
     printBoard(board);
 
