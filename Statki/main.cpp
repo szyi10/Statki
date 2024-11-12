@@ -86,6 +86,33 @@ void placeTwoMastShips(char board[SIZE][SIZE]) {
     }
 }
 
+// Umieszczanie trójmasztowców na planszy
+void placeThreeMastShips(char board[SIZE][SIZE]) {
+    int count = 0;
+
+    while (count < 3) {
+        int x = rand() % SIZE;
+        int y = rand() % SIZE;
+        int orientation = rand() % 2; // 0 - poziomo, 1 - pionowo
+
+        // Sprawdzenie, czy trójmasztowiec można umieścić poziomo
+        if (orientation == 0 && y + 2 < SIZE && isPositionFree(board, x, y) && isPositionFree(board, x, y + 1) && isPositionFree(board, x, y + 2)) {
+            board[x][y] = 'x';
+            board[x][y + 1] = 'x';
+            board[x][y + 2] = 'x';
+            count++;
+        }
+
+        // Sprawdzenie, czy trójmasztowiec można umieścić pionowo
+        else if (orientation == 1 && x + 2 < SIZE && isPositionFree(board, x, y) && isPositionFree(board, x + 1, y) && isPositionFree(board, x + 2, y)) {
+            board[x][y] = 'x';
+            board[x + 1][y] = 'x';
+            board[x + 2][y] = 'x';
+            count++;
+        }
+    }
+}
+
 int main() {
     char board[SIZE][SIZE];
     srand(time(NULL));
@@ -94,6 +121,7 @@ int main() {
 
     placeSingleMastShips(board);
     placeTwoMastShips(board);
+    placeThreeMastShips(board);
 
     printBoard(board);
 
